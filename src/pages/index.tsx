@@ -1,6 +1,6 @@
-import { RegisterForm } from '@/pages/authentication/register/index';
-import { NavBar } from '@/pages/authentication/nav/index';
-import { LoginForm } from '@/pages/authentication/login/index';
+import { RegisterForm } from '@/pages/authentication/register/register';
+
+import { LoginForm } from '@/pages/authentication/login/login';
 
 
 
@@ -8,16 +8,10 @@ import { LoginForm } from '@/pages/authentication/login/index';
 export default function Home() {
 
   return (
-
-
-    <>
-      <div className="">
-        <NavBar />
-      </div>
-      <LoginForm />
-      <RegisterForm />
+    
       
-    </>
-
+    <LoginForm/>
+    
   );
+
 }
