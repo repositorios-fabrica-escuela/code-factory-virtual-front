@@ -2,7 +2,6 @@
 import { useState, FormEvent } from 'react';
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-
 import {
   Card,
   CardContent,
@@ -16,14 +15,13 @@ import { Label } from "@/components/ui/label";
 import {
   AlertDialog,
   AlertDialogAction,
-  AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { NavBar } from '@/pages/authentication/nav/nav';
 
 
 export const description = "A login form component with email and password fields";
@@ -69,7 +67,7 @@ export function LoginForm() {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen">
+    <><NavBar/><div className="flex justify-center items-center h-screen">
       <Card className="mx-auto max-w-sm">
         <form onSubmit={handleSubmit}>
           <CardHeader className="items-center">
@@ -87,8 +85,7 @@ export function LoginForm() {
                   placeholder="m@example.com"
                   required
                   value={formValues.email}
-                  onChange={handleInputChange}
-                />
+                  onChange={handleInputChange} />
               </div>
               <div className="grid gap-2">
                 <div className="flex items-center">
@@ -100,8 +97,7 @@ export function LoginForm() {
                   type="password"
                   required
                   value={formValues.password}
-                  onChange={handleInputChange}
-                />
+                  onChange={handleInputChange} />
               </div>
               <div className="h-4">
                 {LoginError && (
@@ -149,7 +145,7 @@ export function LoginForm() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-    </div>
+    </div></>
   );
 }
 export default LoginForm;

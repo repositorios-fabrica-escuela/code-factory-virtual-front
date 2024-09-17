@@ -2,15 +2,8 @@ import Link from "next/link"
 
 import { Button } from "@/components/ui/button"
 import {
-  Activity,
-  ArrowUpRight,
-  CircleUser,
-  CreditCard,
-  DollarSign,
   Menu,
   Package2,
-  Search,
-  Users,
 } from "lucide-react"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 
@@ -113,7 +106,7 @@ export function NavBar() {
         
       </header>
     </div>
-  )
+  );
 }
 
 
