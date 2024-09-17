@@ -22,7 +22,7 @@ jobs:
   Deploy:
     needs: Build
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev'
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/authentication'
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js 20.x
