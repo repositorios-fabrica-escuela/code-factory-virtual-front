@@ -77,6 +77,7 @@ export const RegisterFormContent = ({
             value={formValues.password}
             onChange={onInputChange}
             error={errors.password}
+            errorContainerClass="h-16"
           />
 
           <FormCheckbox

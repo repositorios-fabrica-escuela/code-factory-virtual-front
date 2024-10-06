@@ -11,6 +11,7 @@ interface FormInputProps {
   error?: string | null;
   onKeyPress?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   inputMode?: "numeric" | "text" | "tel" | "email";
+  errorContainerClass?: string;
 }
 
 export const FormRegister = ({
@@ -23,6 +24,7 @@ export const FormRegister = ({
   error,
   onKeyPress,
   inputMode,
+  errorContainerClass = "h-4" 
 }: FormInputProps) => (
   <div className="grid gap-2">
     <Label htmlFor={id}>{label}</Label>
@@ -36,7 +38,7 @@ export const FormRegister = ({
       inputMode={inputMode}
       className={error ? "border-red-500" : ""}
     />
-    <div className="h-4">
+    <div className={errorContainerClass}>
       {error && (
         <p className="text-red-500 text-xs mt-1">{error}</p>
       )}

@@ -28,7 +28,7 @@ export const LoginFormContent = ({
     onInputChange,
     onSubmit
 }: LoginFormContentProps) => (
-    <Card className="mx-auto max-w-sm">
+    <Card className="flex-1 mx-auto max-w-sm">
         <form onSubmit={onSubmit}>
             <CardHeader className="items-center">
                 <CardTitle className="text-2xl">Login</CardTitle>
