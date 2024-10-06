@@ -23,41 +23,47 @@ export function NavBar() {
   return (
     <div className="flex flex-col">
       <header className="sticky top-0 flex h-24 items-center justify-between gap-4 border-b bg-background px-4 md:px-6">
-        <div className="flex items-center gap-4">
+        <div className="flex-1 items-center gap-4">
           <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
-            <Link
-              href="#"
-              className="flex items-center gap-2 text-lg font-semibold md:text-base"
-            >
-              <Image
-                src="/logo2.svg"
-                alt="Acme Inc Logo"
-                width={120}
-                height={40}
-                className="h-18 w-auto"
-                priority
-              />
-              <span className="font-roboto font-black text-5xl">Singapur</span>
-            </Link>
-            <Link
-              href="#"
-              className="text-foreground transition-colors hover:text-foreground"
-            >
-              Gestión de vuelos
-            </Link>
-            <Link
-              href="#"
-              className="text-muted-foreground transition-colors hover:text-foreground"
-            >
-              Permisos de usuario
-            </Link>
-            <Link
-              href="#"
-              className="text-muted-foreground transition-colors hover:text-foreground"
-            >
-              Reservas
-            </Link>
+            <div className="flex ">
+              <Link
+                href="#"
+                className="flex items-center gap-2 text-lg font-semibold md:text-base"
+              >
+                <Image
+                  src="/logo2.svg"
+                  alt="Acme Inc Logo"
+                  width={120}
+                  height={40}
+                  className="h-18 w-auto"
+                  priority
+                />
+                <span className="font-roboto font-black text-5xl">Singapur</span>
+              </Link>
+            </div>
+
+            <div className="flex-1 flex justify-center  h-full">
+              <Link
+                href="#"
+                className="text-foreground transition-colors hover:text-foreground mx-4"
+              >
+                Gestión de vuelos
+              </Link>
+              <Link
+                href="#"
+                className="text-muted-foreground transition-colors hover:text-foreground mx-4"
+              >
+                Permisos de usuario
+              </Link>
+              <Link
+                href="#"
+                className="text-muted-foreground transition-colors hover:text-foreground mx-4"
+              >
+                Reservas
+              </Link>
+            </div>
           </nav>
+
           <Sheet>
             <SheetTrigger asChild>
               <Button
@@ -83,7 +89,7 @@ export function NavBar() {
                     className="h-10 w-auto"
                     priority
                   />
-                  <span className="font-roboto font-black text-6xl" >Singapur</span>
+                  <span className="font-roboto font-black text-3xl" >Singapur</span>
                 </Link>
                 <Link href="#" className="hover:text-foreground">
                   Gestión de vuelos
@@ -105,7 +111,6 @@ export function NavBar() {
             </SheetContent>
           </Sheet>
         </div>
-
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" size="icon" className="rounded-full h-18 w-18">
