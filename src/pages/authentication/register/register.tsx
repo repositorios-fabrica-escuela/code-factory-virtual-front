@@ -90,7 +90,7 @@ export function RegisterPage() {
     }
   };
 
-  // Manejadores de eventos
+
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
     const fieldName = id as keyof RegisterFormValues;
@@ -108,12 +108,9 @@ export function RegisterPage() {
     }
   };
 
-  const handleCheckboxChange = (id: keyof RegisterFormValues) => (checked: boolean) => {
+  const handleCheckboxChange = (id: string) => (checked: boolean) => {
     setFormValues(prev => ({ ...prev, [id]: checked }));
-    setErrors(prev => ({
-      ...prev,
-      [id]: validateField(id, checked)
-    }));
+    setErrors(prev => ({ ...prev, [id]: null }));
   };
 
   const validateForm = (): boolean => {
@@ -129,6 +126,7 @@ export function RegisterPage() {
     setErrors(newErrors);
     return !Object.values(newErrors).some(error => error !== null);
   };
+  
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
