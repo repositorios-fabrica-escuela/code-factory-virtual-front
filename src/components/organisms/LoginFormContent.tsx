@@ -18,6 +18,8 @@ interface LoginFormContentProps {
         password: string;
     };
     loginError: string | null;
+    emailError: string | null;
+    passwordError: string | null;
     onInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onSubmit: (e: FormEvent) => void;
 }
@@ -25,6 +27,8 @@ interface LoginFormContentProps {
 export const LoginFormContent = ({
     formValues,
     loginError,
+    emailError,
+    passwordError,
     onInputChange,
     onSubmit
 }: LoginFormContentProps) => (
@@ -41,19 +45,23 @@ export const LoginFormContent = ({
                         label="Correo"
                         type="email"
                         placeholder="m@example.com"
-                        required
                         value={formValues.email}
                         onChange={onInputChange}
                     />
+                    <div className="h-4">
+                        <ErrorMessage message={emailError} />
+                    </div>
                     <FormLogin
                         id="password"
                         label="Contraseña"
                         type="password"
                         placeholder="Contraseña"
-                        required
                         value={formValues.password}
                         onChange={onInputChange}
                     />
+                    <div className="h-4">
+                        <ErrorMessage message={passwordError} />
+                    </div>
                     <div className="h-4">
                         <ErrorMessage message={loginError} />
                     </div>
