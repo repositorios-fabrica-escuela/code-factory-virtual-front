@@ -2,8 +2,8 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import {
   Menu,
-  Package2,
-  UserCircle,
+  User, 
+  LogOut,
 } from "lucide-react"
 import Image from 'next/image';
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
@@ -11,7 +11,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
@@ -114,20 +113,20 @@ export function NavBar() {
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" size="icon" className="rounded-full h-18 w-18">
-              {/* Aumenté el tamaño del botón de usuario */}
               <img src="/logo.png" alt="User avatar" className="h-12 w-12 rounded-full" />
-
               <span className="sr-only">Open user menu</span>
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuLabel>My Account</DropdownMenuLabel>
+            <DropdownMenuItem className="flex items-center">
+              <User className="mr-2 h-4 w-4" />
+              Perfil
+            </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Profile</DropdownMenuItem>
-            <DropdownMenuItem>Settings</DropdownMenuItem>
-            <DropdownMenuItem>Billing</DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>Log out</DropdownMenuItem>
+            <DropdownMenuItem className="flex items-center">
+              <LogOut className="mr-2 h-4 w-4" />
+              Salir
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </header>
