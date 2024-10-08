@@ -5,14 +5,13 @@ import {
   CardTitle, 
   CardDescription 
 } from '@/components/ui/card';
-import { NavBar } from '@/pages/authentication/nav/nav';
 
 export const description = "Terminos y condiciones.";
 
 export function Terminos() {
 
   return (
-    <><NavBar /><div className="flex justify-center items-center h-screen">
+    <div className="flex justify-center items-center h-screen">
       <Card className="mx-auto max-w-3xl">
         <CardHeader>
           <CardTitle className="text-2xl">Términos y Condiciones</CardTitle>
@@ -51,7 +50,7 @@ export function Terminos() {
           </p>
         </CardContent>
       </Card>
-    </div></>
+    </div>
   );
   
   }

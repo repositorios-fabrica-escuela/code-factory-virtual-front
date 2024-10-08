@@ -1,5 +1,4 @@
 import { useState, FormEvent, ChangeEvent } from "react";
-import { NavBar } from '@/pages/authentication/nav/nav';
 import { RegisterFormContent } from "@/components/organisms/RegisterFormContent";
 import { SuccessAlert } from "@/components/molecules/SuccessAlert";
 
@@ -154,7 +153,6 @@ export function RegisterPage() {
 
   return (
     <>
-      <NavBar />
       <div className="flex justify-center items-center min-h-screen py-8">
         <RegisterFormContent
           formValues={formValues}

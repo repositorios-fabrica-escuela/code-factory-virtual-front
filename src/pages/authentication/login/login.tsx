@@ -1,5 +1,4 @@
 import { useState, FormEvent } from 'react';
-import { NavBar } from '@/pages/authentication/nav/nav';
 import { LoginFormContent } from '@/components/organisms/LoginFormContent';
 import { LoginAlert } from '@/components/molecules/LoginAlert';
 
@@ -65,7 +64,6 @@ export function LoginPage() {
 
   return (
     <>
-      <NavBar />
       <div className="flex justify-center items-center h-screen">
         <LoginFormContent
           formValues={formValues}
