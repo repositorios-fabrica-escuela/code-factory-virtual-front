@@ -11,6 +11,7 @@ import { FormRegister } from "@/components/atoms/FormRegister";
 import { FormCheckbox } from "@/components/atoms/FormCheckbox";
 import { PrivacyLink } from "@/components/atoms/PrivacyLink";
 import { PersonalInfoFields } from "@/components/molecules/PersonalInfoFields";
+import { Loader2 } from "lucide-react"; 
 
 interface RegisterFormContentProps {
   formValues: {
@@ -33,6 +34,7 @@ interface RegisterFormContentProps {
   handleKeyPress: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   handleCheckboxChange: (id: string) => (checked: boolean) => void;
   onSubmit: (e: FormEvent) => void;
+  isLoading: boolean;
 }
 
 export const RegisterFormContent = ({
@@ -42,6 +44,7 @@ export const RegisterFormContent = ({
   handleKeyPress,
   handleCheckboxChange,
   onSubmit,
+  isLoading
 }: RegisterFormContentProps) => (
   <form onSubmit={onSubmit}>
     <Card className="mx-auto max-w-md">
@@ -105,7 +108,16 @@ export const RegisterFormContent = ({
           </FormCheckbox>
 
           <div className="text-center">
-            <Button type="submit">Guardar</Button>
+          <Button type="submit" className="w-auto" disabled={isLoading}>
+                            {isLoading ? (
+                                <>
+                                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                    Cargando...
+                                </>
+                            ) : (
+                                'Guardar'
+                            )}
+                        </Button>
           </div>
         </div>
       </CardContent>

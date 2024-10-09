@@ -11,6 +11,7 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
+import { Loader2 } from "lucide-react"; 
 
 interface LoginFormContentProps {
     formValues: {
@@ -22,6 +23,7 @@ interface LoginFormContentProps {
     passwordError: string | null;
     onInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onSubmit: (e: FormEvent) => void;
+    isLoading: boolean;
 }
 
 export const LoginFormContent = ({
@@ -30,7 +32,8 @@ export const LoginFormContent = ({
     emailError,
     passwordError,
     onInputChange,
-    onSubmit
+    onSubmit,
+    isLoading
 }: LoginFormContentProps) => (
     <Card className="flex-1 mx-auto max-w-sm">
         <form onSubmit={onSubmit}>
@@ -66,8 +69,15 @@ export const LoginFormContent = ({
                         <ErrorMessage message={loginError} />
                     </div>
                     <div className="text-center">
-                        <Button type="submit" className="w-auto">
-                            Acceder
+                        <Button type="submit" className="w-auto" disabled={isLoading}>
+                            {isLoading ? (
+                                <>
+                                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                    Cargando...
+                                </>
+                            ) : (
+                                'Acceder'
+                            )}
                         </Button>
                     </div>
                 </div>

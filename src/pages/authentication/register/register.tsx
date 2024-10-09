@@ -1,6 +1,8 @@
 import { useState, FormEvent, ChangeEvent } from "react";
 import { RegisterFormContent } from "@/components/organisms/RegisterFormContent";
 import { SuccessAlert } from "@/components/molecules/SuccessAlert";
+import { useMutation } from '@apollo/client';
+import { REGISTER_MUTATION } from '@/graphql/mutations';
 
 interface RegisterFormValues {
   name: string;
@@ -44,13 +46,14 @@ const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&._-])[A-Za-z
 const CELLPHONE_REGEX = /^3\d{9}$/;
 
 export function RegisterPage() {
-  // Estados del formulario
   const [formValues, setFormValues] = useState<RegisterFormValues>(INITIAL_FORM_VALUES);
   const [errors, setErrors] = useState<FormErrors>(INITIAL_ERRORS);
   const [alertDialogOpen, setAlertDialogOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
 
-  // Validadores
+  const [register, { loading }] = useMutation(REGISTER_MUTATION);
+
+
   const validatePassword = (password: string): string | null => {
     if (!PASSWORD_REGEX.test(password)) {
       const errors: string[] = [];
@@ -67,8 +70,8 @@ export function RegisterPage() {
   const validateField = (id: keyof RegisterFormValues, value: string | boolean): string | null => {
     switch (id) {
       case "name":
-        return typeof value === 'string' && value.trim() === "" 
-          ? "El nombre no es válido" 
+        return typeof value === 'string' && value.trim() === ""
+          ? "El nombre no es válido"
           : null;
       case "cellphone":
         return typeof value === 'string' && !CELLPHONE_REGEX.test(value)
@@ -93,7 +96,7 @@ export function RegisterPage() {
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
     const fieldName = id as keyof RegisterFormValues;
-    
+
     setFormValues(prev => ({ ...prev, [fieldName]: value }));
     setErrors(prev => ({
       ...prev,
@@ -125,7 +128,7 @@ export function RegisterPage() {
     setErrors(newErrors);
     return !Object.values(newErrors).some(error => error !== null);
   };
-  
+
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -135,17 +138,32 @@ export function RegisterPage() {
     }
 
     try {
-      // Aquí iría la llamada al API para registrar el usuario
-      console.log("Enviando datos del formulario:", formValues);
-      
-      setAlertMessage("La información se ha guardado correctamente.");
-      setAlertDialogOpen(true);
-      
-      // Reset del formulario
+      const { data } = await register({
+        variables: {
+          request: {
+            fullName: formValues.name,
+            email: formValues.email,
+            password: formValues.password,
+            phoneNumber: formValues.cellphone,
+            acceptTerms: formValues.politicas,
+          },
+        },
+      });
+
+      if (data.register.token) {
+        setAlertMessage("La información se ha guardado correctamente.");
+        setAlertDialogOpen(true);
+        setFormValues(INITIAL_FORM_VALUES);
+        setErrors(INITIAL_ERRORS);
+        console.log('Registro successful:', data.register);
+        localStorage.setItem('token', data.register.token);
+      } else {
+        setAlertMessage("Ocurrió un error al guardar la información. Por favor, intente nuevamente.");
+        setAlertDialogOpen(true);
+      }
       setFormValues(INITIAL_FORM_VALUES);
       setErrors(INITIAL_ERRORS);
     } catch (error) {
-      console.error("Error al enviar el formulario:", error);
       setAlertMessage("Ocurrió un error al guardar la información. Por favor, intente nuevamente.");
       setAlertDialogOpen(true);
     }
@@ -161,8 +179,9 @@ export function RegisterPage() {
           handleKeyPress={handleKeyPress}
           handleCheckboxChange={handleCheckboxChange}
           onSubmit={handleSubmit}
+          isLoading={loading}
         />
-        
+
         <SuccessAlert
           isOpen={alertDialogOpen}
           onOpenChange={setAlertDialogOpen}

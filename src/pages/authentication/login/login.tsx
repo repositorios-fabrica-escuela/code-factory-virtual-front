@@ -1,4 +1,6 @@
 import { useState, FormEvent } from 'react';
+import { useMutation } from '@apollo/client';
+import { LOGIN_MUTATION } from '@/graphql/mutations';
 import { LoginFormContent } from '@/components/organisms/LoginFormContent';
 import { LoginAlert } from '@/components/molecules/LoginAlert';
 
@@ -18,6 +20,8 @@ export function LoginPage() {
   const [emailError, setEmailError] = useState<string | null>(null);
   const [passwordError, setPasswordError] = useState<string | null>(null);
 
+  const [login, { loading }] = useMutation(LOGIN_MUTATION);
+
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
@@ -29,7 +33,7 @@ export function LoginPage() {
     if (id === 'password') setPasswordError(null);
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
     let valid = true;
@@ -39,27 +43,38 @@ export function LoginPage() {
       valid = false;
     }
 
-
     if (!formValues.password) {
       setPasswordError('Este campo es requerido.');
       valid = false;
     }
 
     if (valid) {
-      if (formValues.email !== 'test@example.com' || formValues.password !== 'password') {
-        setLoginError('Usuario o contraseña incorrectos');
-      } else {
-        console.log('Form submitted with values:', formValues);
-        setLoginError(null);
-        setAlertMessage("Ingreso exitoso.");
-        setAlertDialogOpen(true);
-        setFormValues({
-          email: '',
-          password: '',
+      try {
+        const { data } = await login({
+          variables: {
+            request: {
+              email: formValues.email,
+              password: formValues.password,
+            },
+          },
         });
+
+        if (data && data.login && data.login.token) {
+          setLoginError(null);
+          setAlertMessage("Ingreso exitoso.");
+          setAlertDialogOpen(true);
+          setFormValues({
+            email: '',
+            password: '',
+          });
+          localStorage.setItem('token', data.login.token);
+        } else {
+          setLoginError('Error de autenticación');
+        }
+      } catch (error) {
+        setLoginError('Usuario o contraseña incorrectos');
       }
     }
-
   };
 
   return (
@@ -72,6 +87,7 @@ export function LoginPage() {
           passwordError={passwordError}
           onInputChange={handleInputChange}
           onSubmit={handleSubmit}
+          isLoading={loading}
         />
         <LoginAlert
           isOpen={alertDialogOpen}
@@ -82,6 +98,7 @@ export function LoginPage() {
       </div>
     </>
   );
+
 }
 
 export default LoginPage;
