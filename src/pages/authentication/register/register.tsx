@@ -40,7 +40,6 @@ const INITIAL_ERRORS: FormErrors = {
   politicas: null,
 };
 
-// Validación de expresiones regulares
 const EMAIL_REGEX = /^[a-zA-Z0-9]([a-zA-Z0-9._-]*[a-zA-Z0-9])?@[a-zA-Z0-9]([a-zA-Z0-9-]*[a-zA-Z0-9])?\.[a-zA-Z]{2,}(\.[a-zA-Z]{2,})?$/;
 const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&._-])[A-Za-z\d@$!%*?&._-]{8,}$/;
 const CELLPHONE_REGEX = /^3\d{9}$/;
@@ -92,7 +91,6 @@ export function RegisterPage() {
     }
   };
 
-
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
     const fieldName = id as keyof RegisterFormValues;
@@ -137,6 +135,8 @@ export function RegisterPage() {
       return;
     }
 
+    
+
     try {
       const { data } = await register({
         variables: {
@@ -145,7 +145,7 @@ export function RegisterPage() {
             email: formValues.email,
             password: formValues.password,
             phoneNumber: formValues.cellphone,
-            acceptTerms: formValues.politicas,
+            acceptTerms: formValues.termino && formValues.politicas,
           },
         },
       });
