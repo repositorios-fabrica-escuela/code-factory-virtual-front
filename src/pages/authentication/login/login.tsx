@@ -3,6 +3,7 @@ import { useMutation } from '@apollo/client';
 import { LOGIN_MUTATION } from '@/graphql/mutations';
 import { LoginFormContent } from '@/components/organisms/LoginFormContent';
 import { LoginAlert } from '@/components/molecules/LoginAlert';
+import router from 'next/router';
 
 interface LoginFormValues {
   email: string;
@@ -68,6 +69,7 @@ export function LoginPage() {
             password: '',
           });
           localStorage.setItem('token', data.login.token);
+          router.push('/#');
         } else {
           setLoginError('Error de autenticación');
         }

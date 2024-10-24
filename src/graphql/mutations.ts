@@ -15,3 +15,30 @@ export const REGISTER_MUTATION = gql`
     }
   }
 `;
+
+export const GET_USER = gql`
+  query getUser($id: String!) {
+    getUser(id: $id) {
+      id
+      fullName
+      email
+      phoneNumber
+      role
+    }
+  }
+`;
+
+export const UPDATE_USER_MUTATION = gql`
+  mutation UpdateUser($input: UpdateUserInput!) {
+    updateUser(input: $input) {
+      success
+      message
+      user {
+        id
+        name
+        cellphone
+        email
+      }
+    }
+  }
+`;

@@ -26,5 +26,19 @@ export interface RegisterRequest {
     password: string;
     phoneNumber: string;
     acceptTerms: boolean;
-  }
-  
+}
+
+export interface Token {
+    sub: string;
+    role: string;
+    id: string;
+    exp: number;
+    iat: number;
+}
+
+export interface UpdateUserInput {
+    id: string;
+    name: string;
+    cellphone: string;
+    email: string;
+}
